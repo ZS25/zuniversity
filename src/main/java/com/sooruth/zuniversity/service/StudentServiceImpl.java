@@ -1,0 +1,58 @@
+package com.sooruth.zuniversity.service;
+
+import com.sooruth.zuniversity.entity.Student;
+import com.sooruth.zuniversity.repository.StudentRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
+
+@Service
+public class StudentServiceImpl implements StudentService {
+
+    private final Logger LOG = LoggerFactory.getLogger(StudentServiceImpl.class);
+
+    private StudentRepository studentRepository;
+
+    public StudentServiceImpl(StudentRepository studentRepository) {
+        this.studentRepository = studentRepository;
+    }
+
+    @Override
+    public Long create(Student student) {
+        return (studentRepository.save(student)).getId();
+    }
+
+    @Override
+    public Student read(Long id) {
+        Optional<Student> studentOptional = studentRepository.findById(id);
+        if(studentOptional.isEmpty()){
+            throw new IllegalArgumentException(String.format("Student with ID:%d not found!", id));
+        }
+        return studentOptional.get();
+    }
+
+    @Override
+    public List<Student> readAll() {
+        return studentRepository.findAll();
+    }
+
+    @Override
+    public Student update(Student student) {
+        Student studentFromDatabase = read(student.getId());
+
+        studentFromDatabase.setFirstName(student.getFirstName());
+        studentFromDatabase.setLastName(student.getLastName());
+        studentFromDatabase.setEmail(student.getEmail());
+        studentFromDatabase.setAge(student.getAge());
+
+        return studentRepository.save(studentFromDatabase);
+    }
+
+    @Override
+    public void delete(Long id) {
+        studentRepository.deleteById(id);
+    }
+}

@@ -44,6 +44,7 @@ public class ApplicationConfig {
            studentList.add(student);
         }
         studentRepository.saveAll(studentList);
+        LOG.info(String.format("Number of records in T_STUDENT at startup: %d", studentRepository.count()));
     }
 
     private void retrievePagedSortedStudents(StudentRepository studentRepository) {
