@@ -30,10 +30,17 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student read(Long id) {
         Optional<Student> studentOptional = studentRepository.findById(id);
-        if(studentOptional.isEmpty()){
-            throw new IllegalArgumentException(String.format("Student with ID:%d not found!", id));
-        }
-        return studentOptional.get();
+
+        return studentOptional.orElseThrow(() -> new IllegalArgumentException(
+                String.format("Student with ID:%d not found!", id)));
+    }
+
+    @Override
+    public Student findStudentByEmail(String email) {
+        Optional<Student> studentOptional = studentRepository.findStudentByEmail(email);
+
+        return studentOptional.orElseThrow(() -> new IllegalArgumentException(
+                String.format("Student with email:%s not found!", email)));
     }
 
     @Override

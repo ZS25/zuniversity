@@ -12,4 +12,8 @@ public interface StudentController extends ModelController<StudentRecord> {
     @GetMapping("/searchOlderThan/{age}")
     @ResponseStatus(HttpStatus.OK)
     List<StudentRecord> retrieveAllStudentsOlderThan(@PathVariable Integer age);
+
+    @GetMapping("/searchByEmail/{email}")
+    @ResponseStatus(HttpStatus.OK)
+    StudentRecord retrieveStudentByEmail(@PathVariable String email);
 }

@@ -60,4 +60,11 @@ public class StudentControllerImpl implements StudentController {
     public List<StudentRecord> retrieveAllStudentsOlderThan(Integer age) {
         return studentMapper.listStudentsToListStudentRecords(studentService.findAllStudentsOlderThan(age));
     }
+
+    @Override
+    public StudentRecord retrieveStudentByEmail(String email) {
+        return studentMapper.studentToStudentRecord(studentService.findStudentByEmail(email));
+    }
+
+
 }

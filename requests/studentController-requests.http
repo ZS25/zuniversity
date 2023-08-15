@@ -34,4 +34,7 @@ Content-Type: application/json
 }
 
 ###
+GET http://localhost:8080/students/searchByEmail/tom.zoldemort@zuniversity.edu
+
+###
 DELETE http://localhost:8080/students/21
