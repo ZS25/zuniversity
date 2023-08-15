@@ -8,8 +8,11 @@ import jakarta.persistence.Id;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import jakarta.persistence.UniqueConstraint;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SourceType;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.util.Objects;
+import java.time.LocalDateTime;
 
 @Entity(name = "Student")
 @Table(name = "T_STUDENT", uniqueConstraints = {
@@ -30,17 +33,25 @@ public class Student {
     @Column(name = "ID", updatable = false, nullable = false)
     private Long id;
 
-    @Column(name = "FIRST_NAME", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "FIRST_NAME", nullable = false, columnDefinition = "VARCHAR(50)")
     private String firstName;
 
-    @Column(name = "LAST_NAME", nullable = false, columnDefinition = "TEXT")
+    @Column(name = "LAST_NAME", nullable = false, columnDefinition = "VARCHAR(50)")
     private String lastName;
 
     @Column(name = "EMAIL", nullable = false, columnDefinition = "TEXT")
     private String email;
 
-    @Column(name = "AGE", nullable = false)
+    @Column(name = "AGE", nullable = false, columnDefinition = "INTEGER")
     private int age;
+
+    @Column(name = "DATE_CREATED", nullable = false, updatable = false, columnDefinition="TIMESTAMP")
+    @CreationTimestamp(source = SourceType.DB)
+    private LocalDateTime dateCreated;
+
+    @Column(name = "DATE_UPDATED", columnDefinition="TIMESTAMP")
+    @UpdateTimestamp(source = SourceType.DB)
+    private LocalDateTime dateUpdated;
 
     public Student() {
     }
@@ -92,21 +103,19 @@ public class Student {
         this.age = age;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Student student = (Student) o;
-        return age == student.age && Objects.equals(id, student.id) && Objects.equals(firstName, student.firstName) && Objects.equals(lastName, student.lastName) && Objects.equals(email, student.email);
+    public LocalDateTime getDateCreated() {
+        return dateCreated;
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, firstName, lastName, email, age);
+    public void setDateCreated(LocalDateTime dateCreated) {
+        this.dateCreated = dateCreated;
     }
 
-    @Override
-    public String toString() {
-        return new StringBuilder().append("Student{").append("id=").append(id).append(", firstName='").append(firstName).append('\'').append(", lastName='").append(lastName).append('\'').append(", email='").append(email).append('\'').append(", age=").append(age).append('}').toString();
+    public LocalDateTime getDateUpdated() {
+        return dateUpdated;
+    }
+
+    public void setDateUpdated(LocalDateTime dateUpdated) {
+        this.dateUpdated = dateUpdated;
     }
 }

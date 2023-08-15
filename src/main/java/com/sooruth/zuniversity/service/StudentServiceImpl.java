@@ -6,6 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,6 +23,7 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Long create(Student student) {
+        student.setDateCreated(LocalDateTime.now());
         return (studentRepository.save(student)).getId();
     }
 
@@ -54,5 +56,11 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public void delete(Long id) {
         studentRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Student> findAllStudentsOlderThan(Integer age) {
+        List<Student> studentList = studentRepository.findAllByAgeAfter(age);
+        return studentList;
     }
 }

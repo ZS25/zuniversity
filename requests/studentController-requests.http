@@ -1,5 +1,11 @@
 ###
+GET http://localhost:8080/
+
+###
 GET http://localhost:8080/students
+
+###
+GET http://localhost:8080/students/searchOlderThan/60
 
 ###
 POST http://localhost:8080/students
