@@ -6,8 +6,10 @@ import com.sooruth.zuniversity.service.StudentService;
 import com.sooruth.zuniversity.service.record.StudentRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -18,8 +20,8 @@ public class StudentControllerImpl implements StudentController {
 
     private final Logger LOG = LoggerFactory.getLogger(StudentControllerImpl.class);
 
-    private StudentService studentService;
-    private StudentMapper studentMapper;
+    private final StudentService studentService;
+    private final StudentMapper studentMapper;
 
     public StudentControllerImpl(StudentService studentService, StudentMapper studentMapper) {
         this.studentService = studentService;
@@ -27,9 +29,9 @@ public class StudentControllerImpl implements StudentController {
     }
 
     @Override
-    public List<StudentRecord> getAll() {
-        List<Student> studentList = studentService.readAll();
-        return studentMapper.listStudentsToListStudentRecords(studentList);
+    public Page<StudentRecord> getAll(@RequestParam("page") int page, @RequestParam("size") int size) {
+        return studentService.readAll(page, size)
+                .map(studentMapper::studentToStudentRecord);
 
     }
 

@@ -1,11 +1,11 @@
 package com.sooruth.zuniversity.service;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public interface EntityService<T> {
     Long create(T t);
     T read(Long id);
-    List<T> readAll();
+    Page<T> readAll(int page, int size);
     T update(T t);
     void delete(Long id);
 }

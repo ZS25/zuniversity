@@ -4,6 +4,9 @@ import com.sooruth.zuniversity.entity.Student;
 import com.sooruth.zuniversity.repository.StudentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -15,7 +18,7 @@ public class StudentServiceImpl implements StudentService {
 
     private final Logger LOG = LoggerFactory.getLogger(StudentServiceImpl.class);
 
-    private StudentRepository studentRepository;
+    private final StudentRepository studentRepository;
 
     public StudentServiceImpl(StudentRepository studentRepository) {
         this.studentRepository = studentRepository;
@@ -43,9 +46,18 @@ public class StudentServiceImpl implements StudentService {
                 String.format("Student with email:%s not found!", email)));
     }
 
+    /**
+     *
+     * @param
+     * @return List of Students sorted by firstName and then lastName
+     */
     @Override
-    public List<Student> readAll() {
-        return studentRepository.findAll();
+    public Page<Student> readAll(int page, int size) {
+        final Sort SORT_BY_FIRST_AND_LAST_NAME = Sort.by("firstName").ascending()
+                .and(Sort.by("lastName").ascending());
+        PageRequest pageRequest = PageRequest.of(page, size, SORT_BY_FIRST_AND_LAST_NAME);
+
+        return studentRepository.findAll(pageRequest);
     }
 
     @Override
@@ -67,7 +79,6 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public List<Student> findAllStudentsOlderThan(Integer age) {
-        List<Student> studentList = studentRepository.findAllByAgeAfter(age);
-        return studentList;
+        return studentRepository.findAllByAgeAfter(age);
     }
 }
