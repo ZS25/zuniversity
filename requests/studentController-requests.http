@@ -2,6 +2,24 @@
 GET http://localhost:8080/
 
 ###
+GET http://localhost:8080/contact
+
+###
+GET http://localhost:8080/notice
+
+###
+GET http://localhost:8080/myAccount
+
+###
+GET http://localhost:8080/myBalance
+
+###
+GET http://localhost:8080/myCard
+
+###
+GET http://localhost:8080/myLoan
+
+###
 GET http://localhost:8080/students?page=0&size=10
 
 ###
