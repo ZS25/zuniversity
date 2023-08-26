@@ -3,7 +3,7 @@ package com.sooruth.zuniversity.controller;
 import com.sooruth.zuniversity.entity.Student;
 import com.sooruth.zuniversity.mapper.StudentMapper;
 import com.sooruth.zuniversity.service.StudentService;
-import com.sooruth.zuniversity.service.record.StudentRecord;
+import com.sooruth.zuniversity.record.StudentRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;

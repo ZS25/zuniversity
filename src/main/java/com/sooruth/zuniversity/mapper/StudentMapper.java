@@ -1,7 +1,7 @@
 package com.sooruth.zuniversity.mapper;
 
 import com.sooruth.zuniversity.entity.Student;
-import com.sooruth.zuniversity.service.record.StudentRecord;
+import com.sooruth.zuniversity.record.StudentRecord;
 import org.mapstruct.Mapper;
 
 import java.util.List;

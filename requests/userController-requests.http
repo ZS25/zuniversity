@@ -1,0 +1,33 @@
+
+###
+GET http://localhost:8080/users?page=0&size=10
+
+###
+POST http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "email": "skynet@zuniversity.edu",
+  "password": "terminator",
+  "authority": "read"
+}
+
+###
+GET http://localhost:8080/users/4
+
+###
+PUT http://localhost:8080/users
+Content-Type: application/json
+
+{
+  "id": 4,
+  "email": "skynet@zuniversity.edu",
+  "password": "terminator",
+  "authority": "read/write"
+}
+
+###
+GET http://localhost:8080/users/searchByEmail/skynet@zuniversity.edu
+
+###
+DELETE http://localhost:8080/users/4

@@ -1,4 +1,4 @@
-package com.sooruth.zuniversity.service.record;
+package com.sooruth.zuniversity.record;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;

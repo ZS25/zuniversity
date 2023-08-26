@@ -1,6 +1,6 @@
 package com.sooruth.zuniversity.controller;
 
-import com.sooruth.zuniversity.service.record.StudentRecord;
+import com.sooruth.zuniversity.record.StudentRecord;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
