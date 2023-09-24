@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>3.2.0-M1</version> <!-- to be upgraded to 3.2.0 when available -->
+        <version>3.2.0-M3</version> <!-- to be upgraded to 3.2.0 when available -->
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.sooruth</groupId>
@@ -14,7 +14,7 @@
     <name>zuniversity</name>
     <description>zuniversity</description>
     <properties>
-        <java.version>20</java.version> <!-- to be upgraded to java 21 when available -->
+        <java.version>21</java.version>
     </properties>
     <dependencies>
         <dependency>
