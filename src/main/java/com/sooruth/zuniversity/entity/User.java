@@ -36,7 +36,7 @@ public class User {
     @Column(name = "EMAIL", nullable = false, columnDefinition = "TEXT")
     private String email;
 
-    @Column(name = "PASSWORD", nullable = false, columnDefinition = "VARCHAR(50)")
+    @Column(name = "PASSWORD", nullable = false, columnDefinition = "VARCHAR(100)")
     private String password;
 
     @Column(name = "AUTHORITY", nullable = false, columnDefinition = "VARCHAR(50)")

@@ -13,9 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -33,30 +31,30 @@ public class ApplicationLocalConfig {
     /**
      * @apiNote This method will execute just after the context is created to initialise the database with some records.
      */
-    public CommandLineRunner commandLineRunner(StudentRepository studentRepository, UserRepository userRepository){
+    public CommandLineRunner commandLineRunner(StudentRepository studentRepository, UserRepository userRepository, PasswordEncoder passwordEncoder){
         return args -> {
-            fillUserTableAtStartup(userRepository);
+            fillUserTableAtStartup(userRepository, passwordEncoder);
             fillStudentTableAtStartup(studentRepository);
         };
     }
 
-    private void fillUserTableAtStartup(UserRepository userRepository) {
+    private void fillUserTableAtStartup(UserRepository userRepository, PasswordEncoder passwordEncoder) {
         List<User> userList = new ArrayList<>();
 
         final String email1 = "john.connor@zuniversity.edu";
-        final String password1 = "katherineBrewster";
+        final String password1 = passwordEncoder.encode("katherineBrewster");
         final String authority1 = "read";
         final User user1 = new User(email1, password1, authority1, LocalDateTime.now(), null);
         userList.add(user1);
 
         final String email2 = "kyle.reez@zuniversity.edu";
-        final String password2 = "sarahConnor";
+        final String password2 = passwordEncoder.encode("sarahConnor");
         final String authority2 = "read";
         final User user2 = new User(email2, password2, authority2, LocalDateTime.now(), null);
         userList.add(user2);
 
         final String email3 = "t.800@zuniversity.edu";
-        final String password3 = "T-X";
+        final String password3 = passwordEncoder.encode("T-X");
         final String authority3 = "write";
         final User user3 = new User(email3, password3, authority3, LocalDateTime.now(), null);
         userList.add(user3);
