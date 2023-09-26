@@ -19,7 +19,8 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/","/myAccount/**","/myBalance/**", "/myCard/**", "/myLoan/**", "/students/**").authenticated() // this will only authenticate the mentioned URLs of the application
+                .requestMatchers("/","/myAccount/**","/myBalance/**", "/myCard/**", "/myLoan/**").authenticated() // this will only authenticate the mentioned URLs of the application
+                .requestMatchers("/students/**").hasAnyAuthority("admin","manager") // only admin and manager should see students details
                 .requestMatchers("/notice","/contact","/users/**").permitAll()
                 //.anyRequest().authenticated()  //this will secure all URLs of the application
                 //.anyRequest().denyAll() //this will deny all requests coming to the application after login because it is authorization here. You will get login page to authenticate.

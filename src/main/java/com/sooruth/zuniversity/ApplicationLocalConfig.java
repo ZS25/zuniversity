@@ -43,19 +43,19 @@ public class ApplicationLocalConfig {
 
         final String email1 = "john.connor@zuniversity.edu";
         final String password1 = passwordEncoder.encode("katherineBrewster");
-        final String authority1 = "read";
+        final String authority1 = "user";
         final User user1 = new User(email1, password1, authority1, LocalDateTime.now(), null);
         userList.add(user1);
 
         final String email2 = "kyle.reez@zuniversity.edu";
         final String password2 = passwordEncoder.encode("sarahConnor");
-        final String authority2 = "read";
+        final String authority2 = "manager";
         final User user2 = new User(email2, password2, authority2, LocalDateTime.now(), null);
         userList.add(user2);
 
         final String email3 = "t.800@zuniversity.edu";
         final String password3 = passwordEncoder.encode("T-X");
-        final String authority3 = "write";
+        final String authority3 = "admin";
         final User user3 = new User(email3, password3, authority3, LocalDateTime.now(), null);
         userList.add(user3);
 
