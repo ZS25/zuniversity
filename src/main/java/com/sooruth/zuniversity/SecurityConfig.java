@@ -24,7 +24,7 @@ public class SecurityConfig {
                 .requestMatchers("/notice","/contact","/users/**").permitAll()
                 //.anyRequest().authenticated()  //this will secure all URLs of the application
                 //.anyRequest().denyAll() //this will deny all requests coming to the application after login because it is authorization here. You will get login page to authenticate.
-                //.anyRequest().permitAll() //this will allow all requests coming to the application.  Authentication and Authorization are both disabled, so no login page will appear
+                //.anyRequest().permitAll() //enable this to allow access to all other URLs without logging such as actuator and swagger
         );
         http.formLogin(withDefaults());
         http.httpBasic(withDefaults());
