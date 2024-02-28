@@ -1,6 +1,7 @@
 package com.sooruth.zuniversity.service;
 
 import com.sooruth.zuniversity.entity.Student;
+import com.sooruth.zuniversity.exception.ZuniversityRuntimeException;
 import com.sooruth.zuniversity.repository.StudentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,7 +35,7 @@ public class StudentServiceImpl implements StudentService {
     public Student read(Long id) {
         Optional<Student> studentOptional = studentRepository.findById(id);
 
-        return studentOptional.orElseThrow(() -> new IllegalArgumentException(
+        return studentOptional.orElseThrow(() -> new ZuniversityRuntimeException(
                 String.format("Student with ID:%d not found!", id)));
     }
 
@@ -42,13 +43,13 @@ public class StudentServiceImpl implements StudentService {
     public Student findStudentByEmail(String email) {
         Optional<Student> studentOptional = studentRepository.findStudentByEmail(email);
 
-        return studentOptional.orElseThrow(() -> new IllegalArgumentException(
+        return studentOptional.orElseThrow(() -> new ZuniversityRuntimeException(
                 String.format("Student with email:%s not found!", email)));
     }
 
     /**
-     *
-     * @param
+     * @param page
+     * @param size
      * @return List of Students sorted by firstName and then lastName
      */
     @Override

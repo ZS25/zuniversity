@@ -19,9 +19,9 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/","/myAccount/**","/myBalance/**", "/myCard/**", "/myLoan/**").authenticated() // this will only authenticate the mentioned URLs of the application
-                .requestMatchers("/students/**").hasAnyAuthority("admin","manager") // only admin and manager should see students details
-                .requestMatchers("/notice","/contact","/users/**").permitAll()
+                .requestMatchers("/","/myAccount/**","/myBalance/**", "/myCard/**", "/myLoan/**", "/students/**").authenticated() // this will only authenticate the mentioned URLs of the application
+                .requestMatchers("/users/**").hasAnyAuthority("admin") // only admin and manager should see students details
+                .requestMatchers("/notice","/contact", "/client/posts/**").permitAll() //enable this to allow access to these URLs without logging. Useful for testing new API...
                 //.anyRequest().authenticated()  //this will secure all URLs of the application
                 //.anyRequest().denyAll() //this will deny all requests coming to the application after login because it is authorization here. You will get login page to authenticate.
                 //.anyRequest().permitAll() //enable this to allow access to all other URLs without logging such as actuator and swagger
@@ -36,5 +36,4 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }

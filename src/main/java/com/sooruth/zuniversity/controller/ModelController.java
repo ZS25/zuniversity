@@ -24,6 +24,7 @@ public interface ModelController<T> {
     T getById(@PathVariable Long id);
 
     @PostMapping()
+    @ResponseStatus(HttpStatus.CREATED)
     ResponseEntity<String> save(@Valid @RequestBody T model);
 
     @PutMapping
