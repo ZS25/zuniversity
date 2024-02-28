@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public User update(User user) {
         User userFromDatabase = read(user.getId());
         if(null == userFromDatabase){
-            throw new ZuniversityRuntimeException(String.format("User with ID:$d does not exist!", user.getId()));
+            throw new ZuniversityRuntimeException(String.format("User with ID:%d does not exist!", user.getId()));
         }
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         userFromDatabase.setEmail(user.getEmail());
