@@ -1,23 +1,26 @@
 package com.sooruth.zuniversity.controller;
 
+import com.sooruth.zuniversity.entity.Student;
 import com.sooruth.zuniversity.record.StudentRecord;
-import jakarta.validation.Valid;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.graphql.data.method.annotation.Argument;
+import org.springframework.graphql.data.method.annotation.MutationMapping;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 
 import java.util.List;
 
 public interface StudentControllerGraphQL{
 
+    @QueryMapping(name = "getAllStudents")
     List<StudentRecord> getAll();
 
-    StudentRecord getById(@PathVariable Long id);
+    @MutationMapping(name = "addStudentByFields")
+    Student save(@Argument String firstName, @Argument String lastName, @Argument String email, @Argument int age);
 
-    ResponseEntity<String> save(@Valid @RequestBody StudentRecord studentRecord);
+    @MutationMapping(name = "addStudentRecord")
+    Student save(@Argument StudentRecord studentRecord);
 
-    StudentRecord modify(@Valid @RequestBody StudentRecord studentRecord);
+    StudentRecord modify(StudentRecord studentRecord);
 
-    void delete(@PathVariable Long id);
+    void delete(Long id);
 
 }

@@ -6,10 +6,9 @@ import com.sooruth.zuniversity.record.StudentRecord;
 import com.sooruth.zuniversity.repository.StudentRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.graphql.data.method.annotation.QueryMapping;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
@@ -27,20 +26,27 @@ public class StudentControllerGraphQLImpl implements StudentControllerGraphQL {
     }
 
     @Override
-    @QueryMapping(name = "students")
     public List<StudentRecord> getAll() {
         List<Student> studentList = studentRepository.findAll();
         return studentMapper.listStudentsToListStudentRecords(studentList);
     }
 
     @Override
-    public StudentRecord getById(Long id) {
-        return null;
+    public Student save(String firstName, String lastName, String email, int age) {
+        StudentRecord studentRecord = new StudentRecord(null, firstName,lastName, email, age, null, null);
+        Student student = studentMapper.studentRecordToStudent(studentRecord);
+        student.setDateCreated(LocalDateTime.now());
+
+        return studentRepository.save(student);
     }
 
     @Override
-    public ResponseEntity<String> save(StudentRecord studentRecord) {
-        return null;
+    public Student save(StudentRecord studentRecord) {
+
+        Student student = studentMapper.studentRecordToStudent(studentRecord);
+        student.setDateCreated(LocalDateTime.now());
+
+        return studentRepository.save(student);
     }
 
     @Override
@@ -49,7 +55,5 @@ public class StudentControllerGraphQLImpl implements StudentControllerGraphQL {
     }
 
     @Override
-    public void delete(Long id) {
-
-    }
+    public void delete(Long id) {}
 }

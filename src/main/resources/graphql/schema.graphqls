@@ -12,13 +12,23 @@ type Student{
 }
 
 type Query{
-    students:[Student]
+    getAllStudents:[Student]
 }
 
+type Mutation{
+    addStudentByFields(firstName:String, lastName: String, email: String, age: Int):Student
+    addStudentRecord(studentRecord:StudentRecord!):Student
+}
 
+input StudentRecord{
+    firstName:String
+    lastName:String
+    email:String
+    age:Int
+}
 #Sample query to put in http://localhost:8080/graphiql?path=/graphql
-#query{
-#students{
+#query getAllStudents{
+#getAllStudents{
 #id
 #firstName
 #lastName
@@ -27,4 +37,32 @@ type Query{
 #dateCreated
 #dateUpdated
 #}
+#}
+
+#Sample mutation by fields to put in http://localhost:8080/graphiql?path=/graphql
+#mutation saveStudentByFields{
+#    addStudentByFields(firstName:"Bilbo", lastName:"Baggins",
+#        email:"bilbo@baggins.com", age:40){
+#        id
+#        firstName
+#        lastName
+#        email
+#        age
+#        dateCreated
+#        dateUpdated
+#    }
+#}
+
+#Sample mutation by record to put in http://localhost:8080/graphiql?path=/graphql
+#mutation saveStudentRecord{
+#    addStudentRecord(studentRecord:{
+#        firstName:"Frodo", lastName:"Baggins",email:"frodo@baggins.com", age:18}){
+#        id
+#        firstName
+#        lastName
+#        email
+#        age
+#        dateCreated
+#        dateUpdated
+#    }
 #}
