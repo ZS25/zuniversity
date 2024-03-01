@@ -1,0 +1,30 @@
+scalar BigDecimal  #currently not used
+scalar LocalDateTime
+
+type Student{
+    id:ID!
+    firstName:String
+    lastName:String
+    email:String
+    age:Int
+    dateCreated:LocalDateTime
+    dateUpdated:LocalDateTime
+}
+
+type Query{
+    students:[Student]
+}
+
+
+#Sample query to put in http://localhost:8080/graphiql?path=/graphql
+#query{
+#students{
+#id
+#firstName
+#lastName
+#age
+#email
+#dateCreated
+#dateUpdated
+#}
+#}

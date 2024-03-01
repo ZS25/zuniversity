@@ -24,7 +24,7 @@ public class SecurityConfig {
                 .requestMatchers("/notice","/contact", "/client/posts/**").permitAll() //enable this to allow access to these URLs without logging. Useful for testing new API...
                 //.anyRequest().authenticated()  //this will secure all URLs of the application
                 //.anyRequest().denyAll() //this will deny all requests coming to the application after login because it is authorization here. You will get login page to authenticate.
-                //.anyRequest().permitAll() //enable this to allow access to all other URLs without logging such as actuator and swagger
+                .anyRequest().permitAll() //enable this to allow access to all other URLs without logging such as swagger, actuator and graphiql
         );
         http.formLogin(withDefaults());
         http.httpBasic(withDefaults());

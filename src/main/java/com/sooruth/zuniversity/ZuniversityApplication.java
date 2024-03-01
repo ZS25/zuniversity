@@ -13,7 +13,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @OpenAPIDefinition( //http://localhost:8080/swagger-ui/index.html
         info = @Info(
                 title = "Zuniversity application",
-                version = "0.0.2-SNAPSHOT",
+                version = "0.0.3-SNAPSHOT",
                 description = "This project is made to try out the new features of Spring Boot 3.2 over Java 21",
                 termsOfService = "sooruth",
                 contact = @Contact(
