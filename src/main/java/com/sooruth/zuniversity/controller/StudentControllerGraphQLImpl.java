@@ -42,11 +42,18 @@ public class StudentControllerGraphQLImpl implements StudentControllerGraphQL {
 
     @Override
     public Student save(StudentRecord studentRecord) {
-
         Student student = studentMapper.studentRecordToStudent(studentRecord);
         student.setDateCreated(LocalDateTime.now());
 
         return studentRepository.save(student);
+    }
+
+    @Override
+    public List<Student> save(List<StudentRecord> studentRecordList) {
+        List<Student> studentList = studentMapper.listStudentRecordsToListStudents(studentRecordList);
+        studentList.forEach(student -> student.setDateCreated(LocalDateTime.now()));
+
+        return studentRepository.saveAll(studentList);
     }
 
     @Override

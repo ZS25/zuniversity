@@ -19,6 +19,9 @@ public interface StudentControllerGraphQL{
     @MutationMapping(name = "addStudentRecord")
     Student save(@Argument StudentRecord studentRecord);
 
+    @MutationMapping(name = "addListStudentRecord")
+    List<Student> save(@Argument List<StudentRecord> studentRecordList);
+
     StudentRecord modify(StudentRecord studentRecord);
 
     void delete(Long id);
