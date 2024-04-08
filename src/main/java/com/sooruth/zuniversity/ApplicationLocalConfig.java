@@ -8,6 +8,7 @@ import com.sooruth.zuniversity.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.boot.autoconfigure.jdbc.JdbcConnectionDetails;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -31,11 +32,22 @@ public class ApplicationLocalConfig {
     /**
      * @apiNote This method will execute just after the context is created to initialise the database with some records.
      */
-    public CommandLineRunner commandLineRunner(StudentRepository studentRepository, UserRepository userRepository, PasswordEncoder passwordEncoder){
+    public CommandLineRunner commandLineRunner(JdbcConnectionDetails jdbcConnectionDetails, StudentRepository studentRepository, UserRepository userRepository, PasswordEncoder passwordEncoder){
         return args -> {
+            displayDatabaseConnectionDetails(jdbcConnectionDetails);
             fillUserTableAtStartup(userRepository, passwordEncoder);
             fillStudentTableAtStartup(studentRepository);
         };
+    }
+
+    private void displayDatabaseConnectionDetails(JdbcConnectionDetails jdbcConnectionDetails) {
+        String databaseConnectionDetails = StringTemplate.STR."""
+                class: \{jdbcConnectionDetails.getClass().getName()}
+                JDBC URL: \{jdbcConnectionDetails.getJdbcUrl()}
+                Username: \{jdbcConnectionDetails.getUsername()}
+                Password: \{jdbcConnectionDetails.getPassword()}
+                """;
+        LOG.info(databaseConnectionDetails);
     }
 
     private void fillUserTableAtStartup(UserRepository userRepository, PasswordEncoder passwordEncoder) {

@@ -54,6 +54,7 @@ public class StudentServiceImpl implements StudentService {
      */
     @Override
     public Page<Student> readAll(int page, int size) {
+        LOG.info("Inside readAll method!");
         final Sort SORT_BY_FIRST_AND_LAST_NAME = Sort.by("firstName").ascending()
                 .and(Sort.by("lastName").ascending());
         PageRequest pageRequest = PageRequest.of(page, size, SORT_BY_FIRST_AND_LAST_NAME);

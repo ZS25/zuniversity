@@ -28,7 +28,8 @@ public class SecurityConfig {
         );
         http.formLogin(withDefaults());
         http.httpBasic(withDefaults());
-        http.csrf().disable();  //need to disable csrf to allow POST to users
+        //http.csrf().disable();  //need to disable csrf to allow POST to users
+        http.csrf(csrf -> csrf.disable());  //need to disable csrf to allow POST to users
         return http.build();
     }
 
