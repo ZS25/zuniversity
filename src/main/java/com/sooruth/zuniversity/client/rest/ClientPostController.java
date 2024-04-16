@@ -1,4 +1,4 @@
-package com.sooruth.zuniversity.client;
+package com.sooruth.zuniversity.client.rest;
 
 import com.sooruth.zuniversity.controller.ModelController;
 
