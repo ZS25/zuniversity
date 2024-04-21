@@ -1,35 +1,35 @@
 ###
-GET http://localhost:8080/
+GET http://localhost:8090/
 
 ### public URL
-GET http://localhost:8080/contact
+GET http://localhost:8090/contact
 
 ### public URL
-GET http://localhost:8080/notice
+GET http://localhost:8090/notice
 
 ###
-GET http://localhost:8080/myAccount
+GET http://localhost:8090/myAccount
 
 ###
-GET http://localhost:8080/myBalance
+GET http://localhost:8090/myBalance
 
 ###
-GET http://localhost:8080/myCard
+GET http://localhost:8090/myCard
 
 ###
-GET http://localhost:8080/myLoan
+GET http://localhost:8090/myLoan
 
 ###
-POST http://localhost:8080/login?username=john.connor%40zuniversity.edu&password=katherineBrewster
+POST http://localhost:8090/login?username=john.connor%40zuniversity.edu&password=katherineBrewster
 
 ###
-GET http://localhost:8080/students?page=0&size=10
+GET http://localhost:8090/students?page=0&size=10
 
 ###
-GET http://localhost:8080/students/searchOlderThan/60
+GET http://localhost:8090/students/searchOlderThan/60
 
 ###
-POST http://localhost:8080/students
+POST http://localhost:8090/students
 Content-Type: application/json
 
 {
@@ -40,10 +40,10 @@ Content-Type: application/json
   }
 
 ###
-GET http://localhost:8080/students/21
+GET http://localhost:8090/students/21
 
 ###
-PUT http://localhost:8080/students
+PUT http://localhost:8090/students
 Content-Type: application/json
 
 {
@@ -55,10 +55,10 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/students/searchByEmail/tom.zoldemort@zuniversity.edu
+GET http://localhost:8090/students/searchByEmail/tom.zoldemort@zuniversity.edu
 
 ###
-DELETE http://localhost:8080/students/21
+DELETE http://localhost:8090/students/21
 
 ###
-POST http://localhost:8080/login?username=kyle.reez%40zuniversity.edu&password=sarahConnor
+POST http://localhost:8090/login?username=kyle.reez%40zuniversity.edu&password=sarahConnor

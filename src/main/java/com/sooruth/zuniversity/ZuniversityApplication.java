@@ -10,7 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@OpenAPIDefinition( //http://localhost:8080/swagger-ui/index.html
+@OpenAPIDefinition( //http://localhost:8090/swagger-ui/index.html
         info = @Info(
                 title = "Zuniversity application",
                 version = "0.0.5-SNAPSHOT",

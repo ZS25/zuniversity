@@ -27,7 +27,7 @@ input StudentRecord{
     email:String
     age:Int
 }
-#Sample query to put in http://localhost:8080/graphiql?path=/graphql
+#Sample query to put in http://localhost:8090/graphiql?path=/graphql
 #query getAllStudents{
 #getAllStudents{
 #id
@@ -40,7 +40,7 @@ input StudentRecord{
 #}
 #}
 
-#Sample mutation by fields to put in http://localhost:8080/graphiql?path=/graphql
+#Sample mutation by fields to put in http://localhost:8090/graphiql?path=/graphql
 #mutation saveStudentByFields{
 #    addStudentByFields(firstName:"Bilbo", lastName:"Baggins",
 #        email:"bilbo@baggins.com", age:40){
@@ -54,7 +54,7 @@ input StudentRecord{
 #    }
 #}
 
-#Sample mutation by record to put in http://localhost:8080/graphiql?path=/graphql
+#Sample mutation by record to put in http://localhost:8090/graphiql?path=/graphql
 #mutation saveStudentRecord{
 #    addStudentRecord(studentRecord:{
 #        firstName:"Frodo", lastName:"Baggins",email:"frodo@baggins.com", age:18}){
@@ -68,7 +68,7 @@ input StudentRecord{
 #    }
 #}
 
-#Sample mutation by list of records to put in http://localhost:8080/graphiql?path=/graphql
+#Sample mutation by list of records to put in http://localhost:8090/graphiql?path=/graphql
 #mutation addListStudentRecord{
 #    addListStudentRecord(studentRecordList:[
 #        {firstName:"Gandalf", lastName:"Grey",email:"gandalf@grey.com", age:70},
