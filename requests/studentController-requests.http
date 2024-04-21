@@ -20,6 +20,7 @@ GET http://localhost:8090/myCard
 GET http://localhost:8090/myLoan
 
 ###
+# @no-redirect
 POST http://localhost:8090/login?username=john.connor%40zuniversity.edu&password=katherineBrewster
 
 ###
