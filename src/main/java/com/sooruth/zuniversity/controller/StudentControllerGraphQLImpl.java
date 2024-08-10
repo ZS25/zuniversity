@@ -57,7 +57,7 @@ public class StudentControllerGraphQLImpl implements StudentControllerGraphQL {
     }
 
     @Override
-    public StudentRecord modify(StudentRecord studentRecord) {
+    public StudentRecord modify(StudentRecord studentRecord) { //TODO: should not return data
         return null;
     }
 

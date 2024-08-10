@@ -32,7 +32,6 @@ public class StudentControllerImpl implements StudentController {
     public Page<StudentRecord> getAll(@RequestParam("page") int page, @RequestParam("size") int size) {
         return studentService.readAll(page, size)
                 .map(studentMapper::studentToStudentRecord);
-
     }
 
     @Override
@@ -48,7 +47,7 @@ public class StudentControllerImpl implements StudentController {
     }
 
     @Override
-    public StudentRecord modify(StudentRecord model) {
+    public StudentRecord modify(StudentRecord model) { //TODO: should not return data
         Student student = studentService.update(studentMapper.studentRecordToStudent(model));
         return studentMapper.studentToStudentRecord(student);
     }
@@ -59,7 +58,7 @@ public class StudentControllerImpl implements StudentController {
     }
 
     @Override
-    public List<StudentRecord> retrieveAllStudentsOlderThan(Integer age) {
+    public List<StudentRecord> retrieveAllStudentsOlderThan(Integer age) {//TODO: pagination like getAll
         return studentMapper.listStudentsToListStudentRecords(studentService.findAllStudentsOlderThan(age));
     }
 
@@ -67,6 +66,4 @@ public class StudentControllerImpl implements StudentController {
     public StudentRecord retrieveStudentByEmail(String email) {
         return studentMapper.studentToStudentRecord(studentService.findStudentByEmail(email));
     }
-
-
 }

@@ -26,7 +26,6 @@ public class UserControllerImpl implements UserController {
         this.userMapper = userMapper;
     }
 
-
     @Override
     public Page<UserRecord> getAll(int page, int size) {
         return userService.readAll(page, size)
@@ -46,7 +45,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    public UserRecord modify(UserRecord model) {
+    public UserRecord modify(UserRecord model) { //TODO: should not return data
         User user = userService.update(userMapper.userRecordToUser(model));
         return userMapper.userToUserRecord(user);
     }
