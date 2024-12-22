@@ -34,6 +34,4 @@ public interface ModelController<T> {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     void delete(@PathVariable Long id);
-
-
 }
