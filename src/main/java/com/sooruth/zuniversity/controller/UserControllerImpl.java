@@ -7,6 +7,7 @@ import com.sooruth.zuniversity.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -38,7 +39,7 @@ public class UserControllerImpl implements UserController {
     }
 
     @Override
-    public ResponseEntity<String> save(UserRecord model) {
+    public HttpEntity<String> save(UserRecord model) {
         Long savedUserId = userService.create(userMapper.userRecordToUser(model));
         return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").
                 buildAndExpand(savedUserId).toUri()).build();

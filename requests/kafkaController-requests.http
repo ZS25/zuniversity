@@ -1,3 +1,17 @@
 ###
-POST http://localhost:8090/kafka/send?topic=zuni-topic&message=Hello_zuniversity_Kafka
+POST http://localhost:8090/kafka/sendWithTopic?topic=zmessage-topic&message=Hello_zuniversity_Kafka
+
+###
+POST http://localhost:8090/kafka/send?message=Hello_zuniversity_default_topic
+
+###
+POST http://localhost:8090/kafka/sendStudentRecord?topic=zuni-student-topic
+Content-Type: application/json
+
+{
+  "firstName": "Hermione",
+  "lastName": "Granger",
+  "email": "Hermione.Hermione@zuniversity.edu",
+  "age": 17
+}
 

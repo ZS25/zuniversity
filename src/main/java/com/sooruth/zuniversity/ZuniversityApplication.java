@@ -32,6 +32,7 @@ public class ZuniversityApplication {
     public static void main(String[] args) {
         SpringApplication.run(ZuniversityApplication.class, args);
         LOG.info("Welcome to Zuniversity!");
+        LOG.debug("Classpath: " + System.getProperty("java.class.path"));
     }
 
 }

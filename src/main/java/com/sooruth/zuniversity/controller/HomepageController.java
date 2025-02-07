@@ -15,6 +15,7 @@ public class HomepageController {
     private String welcomeMessage;
     @GetMapping
     public String homePage(Principal principal){
-        return String.format(welcomeMessage, principal.getName());
+        String username = principal != null && !principal.getName().isEmpty() ? principal.getName() : "unauthenticated user";
+        return String.format(welcomeMessage, username);
     }
 }

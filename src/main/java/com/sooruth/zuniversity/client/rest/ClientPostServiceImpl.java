@@ -15,6 +15,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestClient;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 class ClientPostServiceImpl implements ClientPostService {
@@ -29,14 +30,16 @@ class ClientPostServiceImpl implements ClientPostService {
 
     @Override
     public Long create(PostRecord postRecord) {
-        PostRecord createdPostRecord =  restClient.post()
+        PostRecord createdPostRecord = restClient.post()
                 .uri("/posts")
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(postRecord)
                 .retrieve()
                 .body(PostRecord.class);
 
-        return ((long)createdPostRecord.id().intValue());
+        Objects.requireNonNull(createdPostRecord, "PostRecord has not been created!");
+
+        return ((long) createdPostRecord.id().intValue());
     }
 
     @Override

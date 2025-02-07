@@ -2,8 +2,8 @@ package com.sooruth.zuniversity.controller;
 
 import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,7 +25,7 @@ public interface ModelController<T> {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    ResponseEntity<String> save(@Valid @RequestBody T model);
+    HttpEntity<String> save(@Valid @RequestBody T model);
 
     @PutMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)

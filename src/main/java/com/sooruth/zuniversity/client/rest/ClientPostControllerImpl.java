@@ -14,9 +14,9 @@ class ClientPostControllerImpl implements ClientPostController {
 
     private final Logger LOG = LoggerFactory.getLogger(ClientPostControllerImpl.class);
 
-    private final ClientPostServiceImpl clientPostService;
+    private final ClientPostService clientPostService;
 
-    public ClientPostControllerImpl(ClientPostServiceImpl clientPostService) {
+    public ClientPostControllerImpl(ClientPostService clientPostService) {
         this.clientPostService = clientPostService;
     }
 
