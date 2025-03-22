@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Objects;
 
 @Service
-class ClientPostServiceImpl implements ClientPostService {
+public final class ClientPostServiceImpl implements ClientPostService {
 
     private final Logger LOG = LoggerFactory.getLogger(ClientPostServiceImpl.class);
 

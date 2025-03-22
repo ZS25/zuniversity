@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-public interface UserController extends ModelController<UserRecord> {
+public sealed interface UserController extends ModelController<UserRecord> permits UserControllerImpl {
     @GetMapping("/searchByEmail/{email}")
     @ResponseStatus(HttpStatus.OK)
     UserRecord retrieveUserByEmail(@PathVariable String email);

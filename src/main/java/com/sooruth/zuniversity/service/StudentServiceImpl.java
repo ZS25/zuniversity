@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class StudentServiceImpl implements StudentService {
+public final class StudentServiceImpl implements StudentService {
 
     private final Logger LOG = LoggerFactory.getLogger(StudentServiceImpl.class);
 

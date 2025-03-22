@@ -15,7 +15,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/users")
-public class UserControllerImpl implements UserController {
+public final class UserControllerImpl implements UserController {
 
     private final Logger LOG = LoggerFactory.getLogger(UserControllerImpl.class);
 

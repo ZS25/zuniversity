@@ -4,7 +4,7 @@ import com.sooruth.zuniversity.entity.Student;
 
 import java.util.List;
 
-public interface StudentService extends EntityService<Student>{
+public sealed interface StudentService extends EntityService<Student> permits StudentServiceImpl{
 
     List<Student> findAllStudentsOlderThan(Integer age);
 

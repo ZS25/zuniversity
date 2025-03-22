@@ -2,5 +2,5 @@ package com.sooruth.zuniversity.client.rest;
 
 import com.sooruth.zuniversity.controller.ModelController;
 
-interface ClientPostController extends ModelController<PostRecord> {
+public sealed interface ClientPostController extends ModelController<PostRecord> permits ClientPostControllerImpl{
 }

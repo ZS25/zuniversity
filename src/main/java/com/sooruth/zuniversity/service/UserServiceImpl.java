@@ -22,7 +22,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class UserServiceImpl implements UserService, UserDetailsService {
+public final class UserServiceImpl implements UserService, UserDetailsService {
 
     private final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
 

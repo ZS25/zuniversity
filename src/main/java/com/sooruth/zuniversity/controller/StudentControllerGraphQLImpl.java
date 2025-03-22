@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Controller
-public class StudentControllerGraphQLImpl implements StudentControllerGraphQL {
+public final class StudentControllerGraphQLImpl implements StudentControllerGraphQL {
 
     private final Logger LOG = LoggerFactory.getLogger(StudentControllerGraphQLImpl.class);
 

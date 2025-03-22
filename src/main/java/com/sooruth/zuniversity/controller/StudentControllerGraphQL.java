@@ -8,7 +8,7 @@ import org.springframework.graphql.data.method.annotation.QueryMapping;
 
 import java.util.List;
 
-public interface StudentControllerGraphQL{
+public sealed interface StudentControllerGraphQL permits StudentControllerGraphQLImpl{
 
     @QueryMapping(name = "getAllStudents")
     List<StudentRecord> getAll();

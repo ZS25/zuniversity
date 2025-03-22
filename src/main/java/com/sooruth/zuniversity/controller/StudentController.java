@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.List;
 
-public interface StudentController extends ModelController<StudentRecord> {
+public sealed interface StudentController extends ModelController<StudentRecord> permits StudentControllerImpl {
     @GetMapping("/searchOlderThan/{age}")
     @ResponseStatus(HttpStatus.OK)
     List<StudentRecord> retrieveAllStudentsOlderThan(@PathVariable Integer age);

@@ -17,7 +17,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.util.List;
 @RestController
 @RequestMapping("/students")
-public class StudentControllerImpl implements StudentController {
+public final class StudentControllerImpl implements StudentController {
 
     private final Logger LOG = LoggerFactory.getLogger(StudentControllerImpl.class);
 

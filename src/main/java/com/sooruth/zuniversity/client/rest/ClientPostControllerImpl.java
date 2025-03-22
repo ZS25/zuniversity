@@ -10,7 +10,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 @RestController
 @RequestMapping("/client/posts")
-class ClientPostControllerImpl implements ClientPostController {
+public final class ClientPostControllerImpl implements ClientPostController {
 
     private final Logger LOG = LoggerFactory.getLogger(ClientPostControllerImpl.class);
 
