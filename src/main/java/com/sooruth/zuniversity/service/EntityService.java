@@ -6,6 +6,6 @@ public interface EntityService<T> {
     Long create(T t);
     T read(Long id);
     Page<T> readAll(int page, int size);
-    T update(T t);
+    void update(T t);
     void delete(Long id);
 }

@@ -1,12 +1,11 @@
 package com.sooruth.zuniversity.service;
 
 import com.sooruth.zuniversity.entity.Student;
-
-import java.util.List;
+import org.springframework.data.domain.Page;
 
 public sealed interface StudentService extends EntityService<Student> permits StudentServiceImpl{
 
-    List<Student> findAllStudentsOlderThan(Integer age);
+    Page<Student> readByAgeOlderThan(int page, int size, Integer age);
 
-    Student findStudentByEmail(String email);
+    Student readByEmail(String email);
 }

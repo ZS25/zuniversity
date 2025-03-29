@@ -4,8 +4,6 @@ import com.sooruth.zuniversity.entity.Student;
 import com.sooruth.zuniversity.mapper.StudentMapper;
 import com.sooruth.zuniversity.record.StudentRecord;
 import com.sooruth.zuniversity.repository.StudentRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 
 import java.time.LocalDateTime;
@@ -13,11 +11,7 @@ import java.util.List;
 
 @Controller
 public final class StudentControllerGraphQLImpl implements StudentControllerGraphQL {
-
-    private final Logger LOG = LoggerFactory.getLogger(StudentControllerGraphQLImpl.class);
-
     private final StudentRepository studentRepository;
-
     private final StudentMapper studentMapper;
 
     public StudentControllerGraphQLImpl(StudentRepository studentRepository, StudentMapper studentMapper) {
@@ -57,8 +51,7 @@ public final class StudentControllerGraphQLImpl implements StudentControllerGrap
     }
 
     @Override
-    public StudentRecord modify(StudentRecord studentRecord) { //TODO: should not return data
-        return null;
+    public void modify(StudentRecord studentRecord) { //TODO
     }
 
     @Override

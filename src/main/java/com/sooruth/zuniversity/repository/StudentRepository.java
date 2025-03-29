@@ -1,6 +1,8 @@
 package com.sooruth.zuniversity.repository;
 
 import com.sooruth.zuniversity.entity.Student;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -11,7 +13,7 @@ import java.util.Optional;
 @Repository
 public interface StudentRepository extends JpaRepository<Student, Long> {
 
-    List<Student> findAllByAgeAfter(Integer age);
+    Page<Student> findAllByAgeAfter(Integer age, PageRequest pageRequest);
 
     @Query("SELECT s FROM Student s WHERE s.email = ?1") //JPQL
     Optional<Student> findStudentByEmail(String email);

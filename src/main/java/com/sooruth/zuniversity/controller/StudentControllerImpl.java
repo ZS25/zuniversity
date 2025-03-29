@@ -1,12 +1,11 @@
 package com.sooruth.zuniversity.controller;
 
-import com.sooruth.zuniversity.entity.Student;
 import com.sooruth.zuniversity.mapper.StudentMapper;
-import com.sooruth.zuniversity.service.StudentService;
 import com.sooruth.zuniversity.record.StudentRecord;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import com.sooruth.zuniversity.service.StudentService;
 import org.springframework.data.domain.Page;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,13 +13,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.List;
+import java.net.URI;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
 @RestController
-@RequestMapping("/students")
+@RequestMapping("/api/students")
 public final class StudentControllerImpl implements StudentController {
-
-    private final Logger LOG = LoggerFactory.getLogger(StudentControllerImpl.class);
-
     private final StudentService studentService;
     private final StudentMapper studentMapper;
 
@@ -30,27 +30,33 @@ public final class StudentControllerImpl implements StudentController {
     }
 
     @Override
-    public Page<StudentRecord> getAll(@RequestParam("page") int page, @RequestParam("size") int size) {
+    public Page<StudentRecord> readAll(@RequestParam("page") int page, @RequestParam("size") int size) {
         return studentService.readAll(page, size)
                 .map(studentMapper::studentToStudentRecord);
     }
 
     @Override
-    public StudentRecord getById(Long id) {
+    public StudentRecord readById(Long id) {
         return studentMapper.studentToStudentRecord(studentService.read(id));
     }
 
     @Override
-    public HttpEntity<String> save(StudentRecord model) {
+    public HttpEntity<EntityModel> create(StudentRecord model) {
         Long savedStudentId = studentService.create(studentMapper.studentRecordToStudent(model));
-        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").
-                buildAndExpand(savedStudentId).toUri()).build();
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(savedStudentId)
+                .toUri();
+
+        Link selfLink = linkTo(methodOn(StudentControllerImpl.class).readById(savedStudentId)).withSelfRel();
+        EntityModel<StudentRecord> resource = EntityModel.of(model, selfLink);
+        return ResponseEntity.created(location).body(resource);
     }
 
     @Override
-    public StudentRecord modify(StudentRecord model) { //TODO: should not return data
-        Student student = studentService.update(studentMapper.studentRecordToStudent(model));
-        return studentMapper.studentToStudentRecord(student);
+    public void update(StudentRecord model) {
+        studentService.update(studentMapper.studentRecordToStudent(model));
     }
 
     @Override
@@ -59,12 +65,12 @@ public final class StudentControllerImpl implements StudentController {
     }
 
     @Override
-    public List<StudentRecord> retrieveAllStudentsOlderThan(Integer age) {//TODO: pagination like getAll
-        return studentMapper.listStudentsToListStudentRecords(studentService.findAllStudentsOlderThan(age));
+    public Page<StudentRecord> readByAgeOlderThan(int page, int size, Integer age) {
+        return studentService.readByAgeOlderThan(age, page, size).map(studentMapper::studentToStudentRecord);
     }
 
     @Override
-    public StudentRecord retrieveStudentByEmail(String email) {
-        return studentMapper.studentToStudentRecord(studentService.findStudentByEmail(email));
+    public StudentRecord readByEmail(String email) {
+        return studentMapper.studentToStudentRecord(studentService.readByEmail(email));
     }
 }

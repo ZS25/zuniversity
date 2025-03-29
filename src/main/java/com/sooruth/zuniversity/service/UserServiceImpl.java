@@ -1,10 +1,7 @@
 package com.sooruth.zuniversity.service;
 
 import com.sooruth.zuniversity.entity.User;
-import com.sooruth.zuniversity.exception.ZuniversityRuntimeException;
 import com.sooruth.zuniversity.repository.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -23,9 +20,6 @@ import java.util.Optional;
 
 @Service
 public final class UserServiceImpl implements UserService, UserDetailsService {
-
-    private final Logger LOG = LoggerFactory.getLogger(UserServiceImpl.class);
-
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
 
@@ -45,17 +39,14 @@ public final class UserServiceImpl implements UserService, UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         String email, password;
         List<GrantedAuthority> authorities; // later multiple authorities (permissions) can be given to a user
-        User user = userRepository.findByEmail(username);
-        if (null == user) {
-            String errorMessage = String.format("User details not found for the user: %s", username);
-            LOG.error(errorMessage);
-            throw new UsernameNotFoundException(errorMessage);
-        } else{
-            email = user.getEmail();
-            password = user.getPassword();
-            authorities = new ArrayList<>();
-            authorities.add(new SimpleGrantedAuthority(user.getAuthority()));
-        }
+        User user = userRepository.findByEmail(username).orElseThrow(() -> new IllegalArgumentException(
+                String.format("User with username: %s not found!", username)));
+
+        email = user.getEmail();
+        password = user.getPassword();
+        authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(user.getAuthority()));
+
         return new org.springframework.security.core.userdetails.User(email,password,authorities);
     }
 
@@ -72,16 +63,16 @@ public final class UserServiceImpl implements UserService, UserDetailsService {
     public User read(Long id) {
         Optional<User> userOptional = userRepository.findById(id);
 
-        return userOptional.orElseThrow(() -> new ZuniversityRuntimeException(
-                String.format("User with ID:%d not found!", id)));
+        return userOptional.orElseThrow(() -> new IllegalArgumentException(
+                String.format("User with ID: %d not found!", id)));
     }
 
     @Override
-    public User findUserByEmail(String email) {
-        Optional<User> userOptional = Optional.ofNullable(userRepository.findByEmail(email));
+    public User readByEmail(String email) {
+        Optional<User> userOptional = userRepository.findByEmail(email);
 
-        return userOptional.orElseThrow(() -> new ZuniversityRuntimeException(
-                String.format("User with email:%s not found!", email)));
+        return userOptional.orElseThrow(() -> new IllegalArgumentException(
+                String.format("User with email: %s not found!", email)));
     }
 
     @Override
@@ -93,17 +84,15 @@ public final class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
-    public User update(User user) {
+    public void update(User user) {
         User userFromDatabase = read(user.getId());
-        if(null == userFromDatabase){
-            throw new ZuniversityRuntimeException(String.format("User with ID:%d does not exist!", user.getId()));
-        }
+
         String encodedPassword = passwordEncoder.encode(user.getPassword());
         userFromDatabase.setEmail(user.getEmail());
         userFromDatabase.setPassword(encodedPassword);
         userFromDatabase.setAuthority(user.getAuthority());
 
-        return userRepository.save(userFromDatabase);
+        userRepository.save(userFromDatabase);
     }
 
     @Override

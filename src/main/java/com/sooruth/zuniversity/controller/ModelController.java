@@ -12,24 +12,25 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.hateoas.EntityModel;
 
 public interface ModelController<T> {
 
     @GetMapping()
     @ResponseStatus(HttpStatus.OK)
-    Page<T> getAll(@RequestParam("page") int page, @RequestParam("size") int size);
+    Page<T> readAll(@RequestParam("page") int page, @RequestParam("size") int size);
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    T getById(@PathVariable Long id);
+    T readById(@PathVariable Long id);
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    HttpEntity<String> save(@Valid @RequestBody T model);
+    HttpEntity<EntityModel> create(@Valid @RequestBody T model);
 
     @PutMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    T modify(@Valid @RequestBody T model);
+    void update(@Valid @RequestBody T model);
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)

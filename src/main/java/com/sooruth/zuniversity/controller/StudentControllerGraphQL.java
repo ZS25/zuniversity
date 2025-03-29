@@ -22,7 +22,7 @@ public sealed interface StudentControllerGraphQL permits StudentControllerGraphQ
     @MutationMapping(name = "addListStudentRecord")
     List<Student> save(@Argument List<StudentRecord> studentRecordList);
 
-    StudentRecord modify(StudentRecord studentRecord);
+    void modify(StudentRecord studentRecord);
 
     void delete(Long id);
 

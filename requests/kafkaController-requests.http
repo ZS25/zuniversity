@@ -1,11 +1,11 @@
 ###
-POST http://localhost:8090/kafka/sendWithTopic?topic=zmessage-topic&message=Hello_zuniversity_Kafka
+POST http://localhost:8090/api/kafka/sendWithTopic?topic=zmessage-topic&message=Hello_zuniversity_Kafka
 
 ###
-POST http://localhost:8090/kafka/send?message=Hello_zuniversity_default_topic
+POST http://localhost:8090/api/kafka/send?message=Hello_zuniversity_default_topic
 
 ###
-POST http://localhost:8090/kafka/sendStudentRecord?topic=zuni-student-topic
+POST http://localhost:8090/api/kafka/sendStudentRecord?topic=zuni-student-topic
 Content-Type: application/json
 
 {

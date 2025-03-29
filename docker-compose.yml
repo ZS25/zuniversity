@@ -1,7 +1,4 @@
 version: '3.8'
-networks:
-  zuni_network:
-    driver: bridge
 services:
   dbzuniversity:
     image: postgres:17.2
@@ -12,8 +9,6 @@ services:
       POSTGRES_USERNAME: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: postgres
-    networks:
-      - zuni_network
 
   zookeeper:
     image: confluentinc/cp-zookeeper:7.8.0

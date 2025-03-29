@@ -1,6 +1,5 @@
 package com.sooruth.zuniversity.client.rest;
 
-import com.sooruth.zuniversity.exception.ZuniversityRuntimeException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.ParameterizedTypeReference;
@@ -52,8 +51,8 @@ public final class ClientPostServiceImpl implements ClientPostService {
                 .body(PostRecord.class);
         }
         catch (HttpClientErrorException httpClientErrorException){
-            LOG.error(String.valueOf(httpClientErrorException));
-            throw new ZuniversityRuntimeException(String.format("Post with id %d not found!", id));
+            LOG.error(httpClientErrorException.toString());
+            throw new IllegalArgumentException(String.format("Post with ID: %d not found!", id));
         }
         return postRecord;
     }
@@ -66,7 +65,7 @@ public final class ClientPostServiceImpl implements ClientPostService {
                 .body(new ParameterizedTypeReference<>() {});
 
         if (CollectionUtils.isEmpty(postRecordList)){
-            throw new ZuniversityRuntimeException("No post record found!");
+            throw new RuntimeException("No post record found!");
         }
 
         return pagePostRecordList(page, size, postRecordList);
@@ -84,8 +83,8 @@ public final class ClientPostServiceImpl implements ClientPostService {
     }
 
     @Override
-    public PostRecord update(PostRecord postRecord) {
-        return restClient.put()
+    public void update(PostRecord postRecord) {
+        restClient.put()
                 .uri("/posts/{id}", postRecord.id())
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(postRecord)

@@ -1,23 +1,25 @@
 package com.sooruth.zuniversity.controller;
 
-import com.sooruth.zuniversity.entity.User;
 import com.sooruth.zuniversity.mapper.UserMapper;
 import com.sooruth.zuniversity.record.UserRecord;
 import com.sooruth.zuniversity.service.UserService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-@RestController
-@RequestMapping("/users")
-public final class UserControllerImpl implements UserController {
+import java.net.URI;
 
-    private final Logger LOG = LoggerFactory.getLogger(UserControllerImpl.class);
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
+
+@RestController
+@RequestMapping("/api/users")
+public final class UserControllerImpl implements UserController {
 
     private final UserService userService;
     private final UserMapper userMapper;
@@ -28,27 +30,33 @@ public final class UserControllerImpl implements UserController {
     }
 
     @Override
-    public Page<UserRecord> getAll(int page, int size) {
+    public Page<UserRecord> readAll(int page, int size) {
         return userService.readAll(page, size)
                 .map(userMapper::userToUserRecord);
     }
 
     @Override
-    public UserRecord getById(Long id) {
+    public UserRecord readById(Long id) {
         return userMapper.userToUserRecord(userService.read(id));
     }
 
     @Override
-    public HttpEntity<String> save(UserRecord model) {
+    public HttpEntity<EntityModel> create(UserRecord model) {
         Long savedUserId = userService.create(userMapper.userRecordToUser(model));
-        return ResponseEntity.created(ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").
-                buildAndExpand(savedUserId).toUri()).build();
+
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(savedUserId)
+                .toUri();
+
+        Link selfLink = linkTo(methodOn(UserControllerImpl.class).readById(savedUserId)).withSelfRel();
+        EntityModel<UserRecord> resource = EntityModel.of(model, selfLink);
+        return ResponseEntity.created(location).body(resource);
     }
 
     @Override
-    public UserRecord modify(UserRecord model) { //TODO: should not return data
-        User user = userService.update(userMapper.userRecordToUser(model));
-        return userMapper.userToUserRecord(user);
+    public void update(UserRecord model) {
+        userService.update(userMapper.userRecordToUser(model));
     }
 
     @Override
@@ -58,7 +66,7 @@ public final class UserControllerImpl implements UserController {
     }
 
     @Override
-    public UserRecord retrieveUserByEmail(String email) {
-        return userMapper.userToUserRecord(userService.findUserByEmail(email));
+    public UserRecord readByEmail(String email) {
+        return userMapper.userToUserRecord(userService.readByEmail(email));
     }
 }
