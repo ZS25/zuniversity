@@ -10,6 +10,8 @@ import java.util.List;
 
 public sealed interface StudentControllerGraphQL permits StudentControllerGraphQLImpl{
 
+    //TODO: add @Valid for the parameters.
+
     @QueryMapping(name = "getAllStudents")
     List<StudentRecord> getAll();
 

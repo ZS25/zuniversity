@@ -31,6 +31,13 @@ public class ZuniversityApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ZuniversityApplication.class, args);
+
+        LOG.debug("Debug log message activated!");
+        LOG.info("Info log message activated!");
+        LOG.error("Error log message activated!");
+        LOG.warn("Warn log message activated!");
+        LOG.trace("Trace log message activated!");
+
         LOG.info("Welcome to Zuniversity!");
         LOG.debug("Classpath: " + System.getProperty("java.class.path"));
     }
