@@ -23,12 +23,12 @@ public class MessageProducer {
     }
 
     public void sendMessage(String topic, String message) {
-        LOG.info(STR."Sending message: \{message} to topic: \{topic}");
+        LOG.info(String.format("Sending message: %s to topic %s", message, topic));
         stringKafkaTemplate.send(topic, message);
     }
 
     public void sendMessage(String topic, StudentRecord studentRecord) {
-        LOG.info(STR."Sending message: \{studentRecord} to topic: \{topic}");
+        LOG.info(String.format("Sending message: %s to topic %s", studentRecord, topic));
 
         Message<StudentRecord> message = MessageBuilder
                 .withPayload(studentRecord).setHeader(KafkaHeaders.TOPIC, topic).build();

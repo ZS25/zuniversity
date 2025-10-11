@@ -24,18 +24,19 @@ public class KafkaController {
     @PostMapping("/sendWithTopic")
     public String sendMessageWithTopic(@RequestParam String topic, @RequestParam String message) {
         messageProducer.sendMessage(topic, message);
-        return STR."Message sent: \{message}";
+        return String.format("Message sent: %s", message);
+
     }
 
     @PostMapping("/send")
     public String sendMessage(@RequestParam String message) {
         messageProducer.sendMessage(topic, message);
-        return STR."Message sent: \{message}";
+        return String.format("Message sent: %s", message);
     }
 
     @PostMapping("/sendStudentRecord")
     public String sendStudentRecord(@RequestParam String topic, @RequestBody StudentRecord studentRecord) {
         messageProducer.sendMessage(topic, studentRecord);
-        return STR."Record sent: \{studentRecord}";
+        return String.format("Record sent: %s", studentRecord);
     }
 }

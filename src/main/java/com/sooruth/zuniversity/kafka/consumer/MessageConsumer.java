@@ -13,17 +13,16 @@ public class MessageConsumer {
 
     @KafkaListener(topics = "zmessage-topic", groupId = "${spring.kafka.consumer.group-id}", containerFactory ="stringKafkaListenerContainerFactory")
     public void listenMessage(String message) {
-        LOG.info(STR."Received message: \{message}");
+        LOG.info(String.format("Received message:: %s", message));
     }
 
     @KafkaListener(topics = "${zuni.topic}", groupId = "${spring.kafka.consumer.group-id}", containerFactory ="stringKafkaListenerContainerFactory")
     public void listenDefaultTopic(String message) {
-        LOG.info(STR."Received message: \{message}");
+        LOG.info(String.format("Received message:: %s", message));
     }
 
     @KafkaListener(topics = "zuni-student-topic", groupId = "${spring.kafka.consumer.group-id}", containerFactory = "jsonKafkaListenerContainerFactory")
     public void listenStudentRecord(StudentRecord studentRecord) {
-        LOG.info(STR."Received record: \{studentRecord}");
+        LOG.info(String.format("Received record: %s", studentRecord));
     }
-
 }

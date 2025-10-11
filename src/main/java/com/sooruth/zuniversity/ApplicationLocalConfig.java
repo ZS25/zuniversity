@@ -8,7 +8,7 @@ import com.sooruth.zuniversity.repository.UserRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.autoconfigure.jdbc.JdbcConnectionDetails;
+import org.springframework.boot.jdbc.autoconfigure.JdbcConnectionDetails;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
@@ -41,12 +41,19 @@ public class ApplicationLocalConfig {
     }
 
     private void displayDatabaseConnectionDetails(JdbcConnectionDetails jdbcConnectionDetails) {
-        String databaseConnectionDetails = StringTemplate.STR."""
-                class: \{jdbcConnectionDetails.getClass().getName()}
-                JDBC URL: \{jdbcConnectionDetails.getJdbcUrl()}
-                Username: \{jdbcConnectionDetails.getUsername()}
-                Password: \{jdbcConnectionDetails.getPassword()}
-                """;
+
+        String databaseConnectionDetails = """
+        class: %s
+        JDBC URL: %s
+        Username: %s
+        Password: %s
+        """.formatted(
+                jdbcConnectionDetails.getClass().getName(),
+                jdbcConnectionDetails.getJdbcUrl(),
+                jdbcConnectionDetails.getUsername(),
+                jdbcConnectionDetails.getPassword()
+        );
+
         LOG.info(databaseConnectionDetails);
     }
 
